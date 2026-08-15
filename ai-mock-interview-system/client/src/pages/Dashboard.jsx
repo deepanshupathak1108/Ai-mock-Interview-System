@@ -8,7 +8,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
-import "./dashboard.css";
+import "./Dashboard.css";
 
 function Dashboard() {
   const [results, setResults] = useState([]);
