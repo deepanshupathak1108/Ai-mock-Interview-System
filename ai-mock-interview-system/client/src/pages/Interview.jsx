@@ -71,28 +71,28 @@ function Interview() {
       getQuestion();
     }, 300);
   };
+// 🔥 Submit Answer
+const submitAnswer = async () => {
+  if (!answer) return;
 
-  // 🔥 Submit Answer
-  const submitAnswer = async () => {
-    if (!answer) return;
+  setChat((prev) => [...prev, { sender: "user", text: answer }]);
 
-    setChat((prev) => [...prev, { sender: "user", text: answer }]);
+  try {
+    const res = await axios.post(
+      `${API_URL}/api/interview/evaluate-answer`,
+      {
+        question,
+        answer,
+      }
+    );
 
-    try {
-      const res = await `${API_URL}/api/interview/evaluate-answer`,
-        {
-          question,
-          answer,
-        };
-        
+    const scoreValue = res.data?.score || 0;
+    const feedbackValue = res.data?.feedback || "No feedback";
+    const correctValue = res.data?.correctAnswer || "Not available";
 
-      const scoreValue = res.data?.score || 0;
-      const feedbackValue = res.data?.feedback || "No feedback";
-      const correctValue = res.data?.correctAnswer || "Not available";
-
-      setScore(scoreValue);
-      setFeedback(feedbackValue);
-      setCorrectAnswer(correctValue);
+    setScore(scoreValue);
+    setFeedback(feedbackValue);
+    setCorrectAnswer(correctValue);
 
       setChat((prev) => [
         ...prev,
