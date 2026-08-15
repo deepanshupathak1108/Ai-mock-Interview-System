@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-
+import API_URL from "../api";
 function Resume() {
 
   const [file, setFile] = useState(null);
@@ -26,7 +26,7 @@ function Resume() {
       setLoading(true);
 
       const res = await axios.post(
-        "http://localhost:5000/api/resume/upload",
+        `${API_URL}/api/resume/upload`,
         formData
       );
 
@@ -57,7 +57,7 @@ function Resume() {
     setChat(prev => [...prev, { sender: "user", text: answer }]);
 
     const res = await axios.post(
-      "http://localhost:5000/api/interview/evaluate-answer",
+      `${API_URL}/api/interview/evaluate-answer`,
       { question, answer }
     );
 

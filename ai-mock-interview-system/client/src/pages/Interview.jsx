@@ -3,6 +3,7 @@ import { useState, useRef, useEffect } from "react";
 import axios from "axios";
 import "./Interview.css";
 import { FaMicrophone, FaPlay, FaStop, FaChartBar } from "react-icons/fa";
+import API_URL from "../api";
 
 function Interview() {
   const [question, setQuestion] = useState("");
@@ -44,9 +45,9 @@ function Interview() {
     if (level === "hr") topic = "HR interview";
 
     const res = await axios.post(
-      "http://localhost:5000/api/interview/generate-question",
-      { topic },
-    );
+  `${API_URL}/api/interview/generate-question`,
+  { topic },
+);
 
     const q = res.data.question;
 
@@ -78,13 +79,12 @@ function Interview() {
     setChat((prev) => [...prev, { sender: "user", text: answer }]);
 
     try {
-      const res = await axios.post(
-        "http://localhost:5000/api/interview/evaluate-answer",
+      const res = await `${API_URL}/api/interview/evaluate-answer`,
         {
           question,
           answer,
-        },
-      );
+        };
+        
 
       const scoreValue = res.data?.score || 0;
       const feedbackValue = res.data?.feedback || "No feedback";
@@ -108,7 +108,7 @@ function Interview() {
         if (questionNumber === 5 && !isFinished) {
           setIsFinished(true);
 
-          axios.post("http://localhost:5000/api/interview/save-result", {
+          axios.post(`${API_URL}/api/interview/save-result`,  {
             score: updatedTotal,
             level,
           });

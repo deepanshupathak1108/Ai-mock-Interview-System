@@ -1,6 +1,7 @@
 import {useState } from "react";
 import axios from "axios";
 import "./Practice.css";
+import API_URL from "../api";
 
 function Practice() {
 
@@ -20,7 +21,7 @@ function Practice() {
     setLoading(true);
 
     const res = await axios.post(
-      "http://localhost:5000/api/interview/generate-question",
+      `${API_URL}/api/interview/generate-question`,
       { topic }
     );
 
@@ -39,7 +40,7 @@ function Practice() {
   setChat((prev) => [...prev, { sender: "user", text: answer }]);
 
   const res = await axios.post(
-    "http://localhost:5000/api/interview/evaluate-answer",
+    `${API_URL}/api/interview/evaluate-answer`,
     { question, answer }
   );
 

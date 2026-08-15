@@ -2,6 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import loginImage from "../Images/login.webp";
+import API_URL from "../api";
 
 function Login() {
   const navigate = useNavigate();
@@ -14,7 +15,7 @@ function Login() {
   const handleSubmit = async () => {
     try {
       if (isLogin) {
-        const res = await axios.post("http://localhost:5000/api/auth/login", {
+        const res = await axios.post(`${API_URL}/api/auth/login`,  {
           email,
           password,
         });
@@ -22,7 +23,7 @@ function Login() {
         alert(res.data.message);
         navigate("/");
       } else {
-        const res = await axios.post("http://localhost:5000/api/auth/register", {
+        const res = await axios.post(`${API_URL}/api/auth/register`,  {
           name,
           email,
           password,
